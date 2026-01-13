@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body{
+  height: 100vh;
+  width: 100vw;
+}
+
+.div{
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 50px;
+}
+
+button, input{
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 18px;
+  margin: 10px;
+}
