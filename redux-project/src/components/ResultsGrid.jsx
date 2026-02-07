@@ -29,7 +29,7 @@ const ResultsGrid = () => {
                     type: 'video',
                     title: 'video-title',
                     thumbnail: item.image,
-                    src: item.url
+                    src: item.video_files[0].link
                 }));
                 console.log(data);
             }
