@@ -10,7 +10,11 @@ const ResultsGrid = () => {
 
     useEffect(() => {
         const getData = async () => {
+            // If query is empty
+            if (!query) return;
+
             try {
+                dispatch(setLoading(true))
                 let data = [];
                 // Photos
                 if (activeTab == "photos") {
@@ -43,34 +47,36 @@ const ResultsGrid = () => {
                         id: item.id,
                         type: item.type,
                         title: item.title,
-                        thumbnail: item.images,
+                        thumbnail: item.images.fixed_width_small.url,
                         src: item.images.original.url
                     }));
                     console.log(data);
                 }
                 dispatch(setResults(data));
+                dispatch(setLoading(false));
 
             } catch (err) {
-                dispatch(setError(err));
+                dispatch(setError(err.message));
             }
         }
         getData();
     }, [query, activeTab])
 
-    if (error) {
-        return <h1 className="text-center">Error</h1>
-    }
-    if (loading) return <h1>Loading...</h1>
+// IF Error
+if (error) return <h1 className="text-center">Error</h1>
 
-    return (
-        <div className="flex gap-6 p-5 items-center justify-center overflow-hidden flex-wrap">
-            {results.map((item, idx) => {
-                return <div key={idx}>
-                    <ResultCard item={item} />
-                </div>
-            })}
-        </div>
-    )
+// IF Loading
+if (loading) return <h1 className="text-center">Loading...</h1>
+
+return (
+    <div className="flex gap-6 p-5 items-center justify-center overflow-hidden flex-wrap">
+        {results.map((item, idx) => {
+            return <div key={idx}>
+                <ResultCard item={item} />
+            </div>
+        })}
+    </div>
+)
 }
 
 export default ResultsGrid

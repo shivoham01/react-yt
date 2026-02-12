@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const searchSlice = createSlice({
     name: "search",
     initialState: {
-        query: 'cat',
+        query: '',
         activeTab: 'photos',
         results: [],
         loading: false,
@@ -20,7 +20,7 @@ const searchSlice = createSlice({
             state.results = action.payload
         },
         setLoading(state, action) {
-            state.loading = true
+            state.loading = action.payload
             state.error = null
         },
         setError(state, action) {
