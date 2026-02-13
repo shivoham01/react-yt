@@ -24,9 +24,9 @@ const ResultsGrid = () => {
                         type: 'photo',
                         title: item.alt_description,
                         thumbnail: item.urls.small,
-                        src: item.urls.full
+                        src: item.urls.full,
+                        url: item.links.html
                     }));
-                    console.log(data);
                 }
                 // Videos
                 if (activeTab == "videos") {
@@ -36,21 +36,22 @@ const ResultsGrid = () => {
                         type: 'video',
                         title: 'video-title',
                         thumbnail: item.image,
-                        src: item.video_files[0].link
+                        src: item.video_files[0].link,
+                        url: item.url
                     }));
-                    console.log(data);
                 }
                 // GIF
                 if (activeTab == "gif") {
                     let response = await fetchGiphy(query)
+                    console.log(response);
                     data = response.data.map((item) => ({
                         id: item.id,
                         type: item.type,
                         title: item.title,
                         thumbnail: item.images.fixed_width_small.url,
-                        src: item.images.original.url
+                        src: item.images.original.url,
+                        url: item.url
                     }));
-                    console.log(data);
                 }
                 dispatch(setResults(data));
                 dispatch(setLoading(false));
@@ -62,21 +63,21 @@ const ResultsGrid = () => {
         getData();
     }, [query, activeTab])
 
-// IF Error
-if (error) return <h1 className="text-center">Error</h1>
+    // IF Error
+    if (error) return <h1 className="text-center">Error</h1>
 
-// IF Loading
-if (loading) return <h1 className="text-center">Loading...</h1>
+    // IF Loading
+    if (loading) return <h1 className="text-center">Loading...</h1>
 
-return (
-    <div className="flex gap-6 p-5 items-center justify-center overflow-hidden flex-wrap">
-        {results.map((item, idx) => {
-            return <div key={idx}>
-                <ResultCard item={item} />
-            </div>
-        })}
-    </div>
-)
+    return (
+        <div className="flex gap-6 p-5 items-center justify-center overflow-hidden flex-wrap">
+            {results.map((item, idx) => {
+                return <div key={idx}>
+                        <ResultCard item={item} />
+                </div>
+            })}
+        </div>
+    )
 }
 
 export default ResultsGrid
