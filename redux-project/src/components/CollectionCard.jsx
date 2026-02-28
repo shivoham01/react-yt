@@ -1,13 +1,13 @@
 import { useDispatch } from "react-redux"
-import { addedToast, addToCollection } from "../redux/features/collectionSlice"
+import { removeCollection, removeToast } from "../redux/features/collectionSlice"
 
-const ResultCard = ({ item }) => {
-    const dispatch = useDispatch();
-    const addToCollectionFunction = (item) => {
-        dispatch(addToCollection(item))
-        dispatch(addedToast())
+const CollectionCard = ({ item }) => {
+    const dispatch = useDispatch()
+
+    const removeItemFunction = (item) => {
+        dispatch(removeCollection(item.id))
+        dispatch(removeToast())
     }
-
     return (
         <div className="w-[18vw] flex flex-col flex-wrap relative bg-black border h-80 border-box rounded-xl overflow-hidden">
             <a href={item.url} target="_blank" className="h-full">
@@ -17,10 +17,10 @@ const ResultCard = ({ item }) => {
             </a>
             <div id="card-bottom" className="flex justify-between gap-2 items-center overflow-hidden absolute bottom-0 px-2 py-6 w-full">
                 <h2 className="text-white h-12 overflow-hidden text-medium font-semibold capitalize">{item.title}</h2>
-                <button onClick={() => addToCollectionFunction(item)} className="font-medium active:scale-95 rounded bg-indigo-600 text-white px-3 py-1 cursor-pointer">Save</button>
+                <button onClick={() => removeItemFunction(item)} className="font-medium active:scale-95 rounded bg-indigo-600 text-white px-3 py-1 cursor-pointer">Remove</button>
             </div>
         </div>
     )
 }
 
-export default ResultCard
+export default CollectionCard

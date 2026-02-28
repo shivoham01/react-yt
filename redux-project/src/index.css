@@ -3,3 +3,7 @@
 #card-bottom{
     background: linear-gradient(transparent, black);
 }
+
+*{
+    font-family: 'helvetica neue';
+}
